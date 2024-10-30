@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Documentação da Classe Usuarios</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1, h2, h3 { color: #2c3e50; }
+        .property, .method { margin-bottom: 20px; }
+        .signature { background-color: #ecf0f1; padding: 10px; border-radius: 5px; }
+        .description { margin-top: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #bdc3c7; padding: 8px; text-align: left; }
+        th { background-color: #ecf0f1; }
+    </style>
+</head>
+<body>
+
+<h1>Classe Usuarios</h1>
+<p>
+    Esta classe representa um usuário e armazena suas informações básicas.
+</p>
+
+<h2>Propriedades</h2>
+
+<div class="property">
+    <h3>$login</h3>
+    <div class="signature">
+        <strong>Tipo:</strong> string
+    </div>
+    <div class="description">
+        <p>Login do usuário.</p>
+    </div>
+</div>
+
+<div class="property">
+    <h3>$nome</h3>
+    <div class="signature">
+        <strong>Tipo:</strong> string
+    </div>
+    <div class="description">
+        <p>Nome completo do usuário.</p>
+    </div>
+</div>
+
+<div class="property">
+    <h3>$email</h3>
+    <div class="signature">
+        <strong>Tipo:</strong> string
+    </div>
+    <div class="description">
+        <p>Endereço de email do usuário.</p>
+    </div>
+</div>
+
+<div class="property">
+    <h3>$celular</h3>
+    <div class="signature">
+        <strong>Tipo:</strong> string
+    </div>
+    <div class="description">
+        <p>Número de celular do usuário.</p>
+    </div>
+</div>
+
+<div class="property">
+    <h3>$status</h3>
+    <div class="signature">
+        <strong>Tipo:</strong> bool
+    </div>
+    <div class="description">
+        <p>Status do usuário (ativo/inativo).</p>
+    </div>
+</div>
+
+<h2>Métodos</h2>
+
+<div class="method">
+    <h3>addUsuario()</h3>
+    <div class="signature">
+        <strong>Assinatura:</strong><br>
+        public void <strong>addUsuario</strong>(string $login, string $nome, string $email, string $celular, bool $status)
+    </div>
+    <div class="description">
+        <p>
+            Carrega os dados do usuário. Este método atribui os valores fornecidos às propriedades do usuário.
+        </p>
+        <h4>Parâmetros:</h4>
+        <table>
+            <tr>
+                <th>Nome</th>
+                <th>Tipo</th>
+                <th>Descrição</th>
+            </tr>
+            <tr>
+                <td>$login</td>
+                <td>string</td>
+                <td>Login do usuário.</td>
+            </tr>
+            <tr>
+                <td>$nome</td>
+                <td>string</td>
+                <td>Nome completo do usuário.</td>
+            </tr>
+            <tr>
+                <td>$email</td>
+                <td>string</td>
+                <td>Endereço de email do usuário.</td>
+            </tr>
+            <tr>
+                <td>$celular</td>
+                <td>string</td>
+                <td>Número de celular do usuário.</td>
+            </tr>
+            <tr>
+                <td>$status</td>
+                <td>bool</td>
+                <td>Status ativo/inativo do usuário.</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
+ 
