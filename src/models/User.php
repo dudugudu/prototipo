@@ -9,7 +9,7 @@ namespace models;
  * 
  * @author Eduardo Gustavo
  */
-class Usuarios {
+class User {
     
     /**
      * Login do usuário.
@@ -59,13 +59,14 @@ class Usuarios {
      *
      * @return void
      */
-    public function addUsuario($login, $nome, $email, $celular, $status){
+    public function addUser($login, $nome, $email, $celular, $status){
         $this->login   = $login;
         $this->nome    = $nome;
         $this->email   = $email;
         $this->celular = $celular;
         $this->status  = $status;
     }
+
 }
 
 ?>

@@ -1,0 +1,4 @@
+composer install
+
+
+php vendor/bin/phpunit --configuration phpunit.xml

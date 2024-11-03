@@ -1,0 +1,1 @@
+{"version":1,"defects":{"DAOUsuarioTest::testLoginBemSucedido":7,"DAOUserTest::incluirTeste":7},"times":{"DAOUsuarioTest::testLoginBemSucedido":0.01,"DAOUserTest::loginTeste":0.01,"DAOUserTest::loginInvalidoTeste":0.002,"DAOUserTest::incluirTeste":0.003,"LoginSucesse::loginTeste":0.002}}
