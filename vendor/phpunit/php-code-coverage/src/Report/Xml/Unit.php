@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /*
- * This file is part of the php-code-coverage package.
+ * This file is part of phpunit/php-code-coverage.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -9,14 +9,17 @@
  */
 namespace SebastianBergmann\CodeCoverage\Report\Xml;
 
+use function assert;
+use DOMElement;
+
+/**
+ * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
+ */
 final class Unit
 {
-    /**
-     * @var \DOMElement
-     */
-    private $contextNode;
+    private readonly DOMElement $contextNode;
 
-    public function __construct(\DOMElement $context, string $name)
+    public function __construct(DOMElement $context, string $name)
     {
         $this->contextNode = $context;
 
@@ -35,43 +38,23 @@ final class Unit
         $this->contextNode->setAttribute('crap', (string) $crap);
     }
 
-    public function setPackage(string $full, string $package, string $sub, string $category): void
-    {
-        $node = $this->contextNode->getElementsByTagNameNS(
-            'https://schema.phpunit.de/coverage/1.0',
-            'package'
-        )->item(0);
-
-        if (!$node) {
-            $node = $this->contextNode->appendChild(
-                $this->contextNode->ownerDocument->createElementNS(
-                    'https://schema.phpunit.de/coverage/1.0',
-                    'package'
-                )
-            );
-        }
-
-        $node->setAttribute('full', $full);
-        $node->setAttribute('name', $package);
-        $node->setAttribute('sub', $sub);
-        $node->setAttribute('category', $category);
-    }
-
     public function setNamespace(string $namespace): void
     {
         $node = $this->contextNode->getElementsByTagNameNS(
             'https://schema.phpunit.de/coverage/1.0',
-            'namespace'
+            'namespace',
         )->item(0);
 
         if (!$node) {
             $node = $this->contextNode->appendChild(
                 $this->contextNode->ownerDocument->createElementNS(
                     'https://schema.phpunit.de/coverage/1.0',
-                    'namespace'
-                )
+                    'namespace',
+                ),
             );
         }
+
+        assert($node instanceof DOMElement);
 
         $node->setAttribute('name', $namespace);
     }
@@ -81,8 +64,8 @@ final class Unit
         $node = $this->contextNode->appendChild(
             $this->contextNode->ownerDocument->createElementNS(
                 'https://schema.phpunit.de/coverage/1.0',
-                'method'
-            )
+                'method',
+            ),
         );
 
         return new Method($node, $name);

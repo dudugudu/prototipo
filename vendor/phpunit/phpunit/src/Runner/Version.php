@@ -9,22 +9,23 @@
  */
 namespace PHPUnit\Runner;
 
+use function array_slice;
+use function dirname;
+use function explode;
+use function implode;
+use function str_contains;
 use SebastianBergmann\Version as VersionId;
 
+/**
+ * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
+ */
 final class Version
 {
-    /**
-     * @var string
-     */
-    private static $pharVersion = '';
+    private static string $pharVersion = '';
+    private static string $version     = '';
 
     /**
-     * @var string
-     */
-    private static $version = '';
-
-    /**
-     * Returns the current version of PHPUnit.
+     * @return non-empty-string
      */
     public static function id(): string
     {
@@ -33,34 +34,39 @@ final class Version
         }
 
         if (self::$version === '') {
-            self::$version = (new VersionId('8.2.3', \dirname(__DIR__, 2)))->getVersion();
+            self::$version = (new VersionId('11.4.3', dirname(__DIR__, 2)))->asString();
         }
 
         return self::$version;
     }
 
+    /**
+     * @return non-empty-string
+     */
     public static function series(): string
     {
-        if (\strpos(self::id(), '-')) {
-            $version = \explode('-', self::id())[0];
+        if (str_contains(self::id(), '-')) {
+            $version = explode('-', self::id(), 2)[0];
         } else {
             $version = self::id();
         }
 
-        return \implode('.', \array_slice(\explode('.', $version), 0, 2));
+        return implode('.', array_slice(explode('.', $version), 0, 2));
     }
 
+    /**
+     * @return positive-int
+     */
+    public static function majorVersionNumber(): int
+    {
+        return (int) explode('.', self::series())[0];
+    }
+
+    /**
+     * @return non-empty-string
+     */
     public static function getVersionString(): string
     {
         return 'PHPUnit ' . self::id() . ' by Sebastian Bergmann and contributors.';
-    }
-
-    public static function getReleaseChannel(): string
-    {
-        if (\strpos(self::$pharVersion, '-') !== false) {
-            return '-nightly';
-        }
-
-        return '';
     }
 }

@@ -9,9 +9,8 @@
  */
 namespace PHPUnit;
 
-/**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
- */
-interface Exception
+use Throwable;
+
+interface Exception extends Throwable
 {
 }
