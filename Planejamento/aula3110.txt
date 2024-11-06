@@ -1,0 +1,6 @@
+Codifique a classe DAOProspect com os métodos:
+    - incluirProspect(Prospect prospect)
+    - alterarProspect(Prospect prospect)
+    - excluirProspect(Prospect prospect)
+    - buscarProspect(String nome)
+    - buscarallProspect()
