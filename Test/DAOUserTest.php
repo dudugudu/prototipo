@@ -53,6 +53,7 @@ class DAOUserTest extends TestCase {
             // Se ocorrer uma exceção, o teste falha com a mensagem de erro
             $this->fail('Erro ao logar: ' . $e->getMessage());
         }
+        
     }
 
     /**

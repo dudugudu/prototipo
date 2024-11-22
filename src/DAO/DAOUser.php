@@ -64,6 +64,8 @@ class DAOUser {
      * @return User Objeto User com os dados do usuário ou com status FALSE caso falhe
      */
     public function logar($login, $senha) {
+
+     
       
         // Estabelece conexão com o banco de dados
         $db = $this->connectDB();
