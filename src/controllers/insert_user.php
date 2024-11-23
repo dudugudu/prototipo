@@ -10,6 +10,9 @@ require_once __DIR__ . '/../../config.php'; // Inclui o arquivo de configuraçã
 require_once (SRC . 'Controllers/User/ControllerUser.php'); // Inclui o controlador de usuário
 
 use Controllers\ControllerUser;
+require_once (SRC . 'utils/notify.php'); // Inclui o arquivo de utilidades; // Inclui o arquivo de utilidades
+use Utils\Notify;
+$notify = new Notify(); // Instancia a classe de notificação
 
 if(isset($_SERVER ['REQUEST_METHOD']) && $_SERVER ['REQUEST_METHOD'] == 'POST'){
     // Verifica se os campos 'user' e 'senha' foram enviados via POST
@@ -30,18 +33,17 @@ if(isset($_SERVER ['REQUEST_METHOD']) && $_SERVER ['REQUEST_METHOD'] == 'POST'){
             header('Location: '.ROOT_URL.'index.php'); // Redireciona para o dashboard
         }else{
             // Se o login falhar
-            $_SESSION['erroInsert'] = "Erro ao cadastrar usuário!"; // Armazena mensagem de erro na sessão
+            $notify->addMessage('Erro ao cadastrar usuário!', 'error'); // Adiciona uma mensagem de erro
             header('Location: '. VIEWS_URL . 'insert_user.php'); // Redireciona para a página inicial
         }
 
     }else{
         echo "Senhas não conferem!";
-        $_SESSION['erroInsert'] = "Senhas não conferem!"; // Armazena mensagem de erro na sessão
+        $notify->addMessage('Senhas não conferem!', 'error'); // Adiciona uma mensagem de erro
         header('Location: '. VIEWS_URL . 'insert_user.php'); // Redireciona para a página inicial
     }
 }else{
     // Caso os dados não tenham sido enviados via POST
-
-    $_SESSION['erroInsert'] = "Você precisa estar logado para acessar esta página!"; // Armazena mensagem de erro na sessão
+    $notify->addMessage('Você precisa estar logado para acessar esta página!', 'error'); // Adiciona uma mensagem de erro
     header('Location: '. VIEWS_URL . 'insert_user.php'); // Redireciona para a página inicial
 }

@@ -42,4 +42,41 @@ class ControllerPropect{
             throw new \Exception($e->getMessage());
         }
     }
+
+    public function buscarPropect($id){
+        $dao = new DAOProspects(); // Cria uma instância de DAOPropect
+
+        try{
+            $propect = $dao->getProspectId($id); // Insere o novo usuário no banco de dados
+            return $propect; // Retorna o usuário cadastrado
+        }catch(\Exception $e){
+            // Em caso de erro, lança uma exceção com a mensagem do erro
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    public function atualizarPropect($id, $name, $email, $whatapp, $facebook, $celular){
+        $dao = new DAOProspects(); // Cria uma instância de DAOPropect
+
+        try{
+            $propect = $dao->updateProspects($id, $name, $email, $whatapp, $facebook, $celular); // Insere o novo usuário no banco de dados
+            return $propect; // Retorna o usuário cadastrado
+        }catch(\Exception $e){
+            // Em caso de erro, lança uma exceção com a mensagem do erro
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    public function deletarPropect($id){
+        $dao = new DAOProspects(); // Cria uma instância de DAOPropect
+
+        try{
+            $propect = $dao->deleteProspects($id); // Insere o novo usuário no banco de dados
+            return $propect; // Retorna o usuário cadastrado
+        }catch(\Exception $e){
+            // Em caso de erro, lança uma exceção com a mensagem do erro
+            throw new \Exception($e->getMessage());
+        }
+    }
+    
 }

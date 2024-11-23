@@ -12,6 +12,10 @@ require_once (SRC . 'Controllers/Propects/ControllerPropect.php'); // Inclui a c
 
 use Controllers\ControllerPropect;
 
+require_once (SRC . 'utils/notify.php'); // Inclui o arquivo de utilidades; // Inclui o arquivo de utilidades
+use Utils\Notify;
+$notify = new Notify(); // Instancia a classe de notificação
+
 if(isset($_SERVER ['REQUEST_METHOD']) && $_SERVER ['REQUEST_METHOD'] == 'POST'){
     // Verifica se os campos 'name', 'email', 'whatapp', 'facebook' e 'celular' foram enviados via POST
     $name = $_POST['name'];
@@ -28,13 +32,12 @@ if(isset($_SERVER ['REQUEST_METHOD']) && $_SERVER ['REQUEST_METHOD'] == 'POST'){
         header('Location: '.VIEWS_URL.'dashboard.php'); // Redireciona para o dashboard
     }else{
         // Se o cadastro falhar
-        $_SESSION['erroInsert'] = "Erro ao cadastrar prospect!"; // Armazena mensagem de erro na sessão
+        $notify->addMessage('Erro ao cadastrar prospect!', 'error'); // Adiciona uma mensagem de erro
         header('Location: '. VIEWS_URL . 'insert_prospect.php'); // Redireciona para a página inicial
     }
 }else{
     // Caso os dados não tenham sido enviados via POST
-
-    $_SESSION['erroInsert'] = "Você precisa estar logado para acessar esta página!"; // Armazena mensagem de erro na sessão
+    $notify->addMessage('Você precisa estar logado para acessar esta página!', 'error'); // Adiciona uma mensagem de erro
     header('Location: '. VIEWS_URL . 'insert_prospect.php'); // Redireciona para a página inicial
 }
 
