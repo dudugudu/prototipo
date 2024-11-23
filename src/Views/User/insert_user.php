@@ -12,32 +12,13 @@ require_once __DIR__ . '/../../../config.php';
         <title>ProsperFlow</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <!-- CSS only -->
-        <style>
-            header {
-                height: 56px;
-            }
-            .container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: calc(100vh - 56px);
-            }
-            .container .row {
-                width: 100%;
-                height: 720px;
-            }
-            .img img {
-                width: 100px;
-                margin: 10px auto;
-                display: block;
-            }
-        </style>
+        <link href="<?php echo VIEWS_URL; ?>css/main.css" rel="stylesheet">
     </head>
     <body>
         <header>
             <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">ProsperFlow</a>
+                    <a class="navbar-brand" href="<?php echo ROOT_URL; ?>index.php">ProsperFlow</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -45,7 +26,7 @@ require_once __DIR__ . '/../../../config.php';
             </nav>
         </header>
         <!-- Sistema de cadastro do sistema -->
-        <main class="container">
+        <main class="container containerIII">
             <div class="row">
                 <div class="col-md-6 offset-md-3">
                     <div class="img">
