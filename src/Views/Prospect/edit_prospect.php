@@ -1,6 +1,20 @@
 <?php
 session_start(); // Inicia a sessão
 require_once __DIR__ . '/../../../config.php';
+require_once (SRC . 'Controllers/Propects/ControllerPropect.php'); // Inclui a classe ControllerProspects
+
+use Controllers\ControllerPropect;
+
+$propects = new ControllerPropect(); // Cria uma instância de ControllerPropect
+if(isset($_GET['cod_prospect'])){
+    
+    try{
+        $prospect = $propects->buscarPropect($_GET['cod_prospect']); // Lista os usuários cadastrados
+    }catch(\Exception $e){
+        $_SESSION['error'] = $e->getMessage(); // Atribui a mensagem de erro à variável de sessão
+    }
+}
+    
 
 ?>
 
@@ -33,26 +47,30 @@ require_once __DIR__ . '/../../../config.php';
                         <img src="<?php echo IMG_URL; ?>adduser.webp" alt="Adicionar Usuário">
                     </div>
                     <h1 class="text-center">Editar Cadastro de propects</h1>
-                    <form action="<?php echo CONTROLLERS_URL; ?>insert_propect.php" method="POST">
+                    <form action="<?php echo CONTROLLERS_URL; ?>put_propect.php" method="POST">
+                        <div class="mb-3">
+                            <label for="cod" class="form-label">Codigo Propect</label>
+                            <input type="text" class="form-control" name="cod" value="<?php echo $prospect['cod_prospect']; ?>" readonly>
+                        </div>
                         <div class="mb-3">
                             <label for="name" class="form-label">Nome</label>
-                            <input type="text" class="form-control"  name="name" required>
+                            <input type="text" class="form-control" name="name" value="<?php echo $prospect['nome']; ?>">
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control"  name="email" required>
+                            <input type="email" class="form-control"  name="email" value="<?php echo $prospect['email']; ?>">
                         </div>
                         <div class="mb-3">
                             <label for="phone" class="form-label">Celular</label>
-                            <input type="text" class="form-control"  name="cellphone" required>
+                            <input type="text" class="form-control"  name="cellphone" value="<?php echo $prospect['celular']; ?>">
                         </div>
                         <div class="mb-3">
                             <label for="username" class="form-label">Whatsapp</label>
-                            <input type="text" class="form-control"  name="whatsapp" required>
+                            <input type="text" class="form-control"  name="whatsapp" value="<?php echo $prospect['whatsapp']; ?>">
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="form-label">Facebook</label>
-                            <input type="password" class="form-control"  name="facebook" required>
+                            <label for="facebook" class="form-label">Facebook</label>
+                            <input type="text" class="form-control"  name="facebook" value="<?php echo $prospect['facebook']; ?>">
                         </div>
                         <button type="submit" class="btn btn-primary">Cadastrar</button>
                         <a href="<?php echo ROOT_URL; ?>index.php" class="btn btn-secondary">Voltar</a>

@@ -55,6 +55,11 @@ class DAOProspects {
      */
     public function putProspects($name, $email, $whatapp, $facebook, $celular, $id) {
         $conn = $this->connectDB();
+
+        if (empty($id)) {
+            throw new \Exception("ID do prospect não informado");
+            die;
+        }
         
         try {
             $query = "UPDATE prospect SET nome = ?, email = ?, whatsapp = ?, facebook = ?, celular = ? WHERE cod_prospect = ?";
@@ -62,7 +67,7 @@ class DAOProspects {
             $stmt->bind_param("sssssi", $name, $email, $whatapp, $facebook, $celular, $id);
             $stmt->execute();
             $conn->close();
-            return TRUE;
+            return true;
         } catch (\Exception $e) {
             throw new \Exception("Erro ao atualizar prospect: " . $e->getMessage());
             die;
@@ -93,6 +98,7 @@ class DAOProspects {
      * 
      * @return array Prospect encontrado
      */
+    
     public function getProspectName($name) {
         $conn = $this->connectDB();
         
@@ -109,7 +115,6 @@ class DAOProspects {
             die;
         }
     }
-
     /**
      * Busca todos os prospects
      * 
@@ -130,6 +135,25 @@ class DAOProspects {
             die;
         }
     }
+
+    public function getProspectId($id) {
+        $conn = $this->connectDB();
+        
+        try {
+            $query = "SELECT * FROM prospect WHERE cod_prospect = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("s", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $conn->close();
+            return $result->fetch_assoc();
+        } catch (\Exception $e) {
+            throw new \Exception("Erro ao buscar prospect: " . $e->getMessage());
+            die;
+        }
+    }
+
+    
 }
 
 ?>

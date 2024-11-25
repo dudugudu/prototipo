@@ -78,5 +78,17 @@ class ControllerPropect{
             throw new \Exception($e->getMessage());
         }
     }
+
+    public function putProspects($name, $email, $whatapp, $facebook, $celular, $id){
+        $dao = new DAOProspects(); // Cria uma instância de DAOPropect
+
+        try{
+            $propect = $dao->putProspects($name, $email, $whatapp, $facebook, $celular, $id); // Insere o novo usuário no banco de dados
+            return $propect; // Retorna o usuário cadastrado
+        }catch(\Exception $e){
+            // Em caso de erro, lança uma exceção com a mensagem do erro
+            throw new \Exception($e->getMessage());
+        }
+    }
     
 }
