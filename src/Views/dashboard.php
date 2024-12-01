@@ -80,8 +80,8 @@ try{
                                 <td><?php echo htmlspecialchars($user['celular']); ?></td>
                                 <td>
                                     <div class="Action">
-                                        <a class="fa-solid fa-pen-to-square" href="<?php echo VIEWS_URL; ?>prospect/edit_prospect.php?cod_prospect=<?php echo $user['cod_prospect']; ?>"></a>
-                                        <a class="fa-solid fa-trash" href="<?php echo CONTROLLERS_URL; ?>delete_prospect.php?cod_prospect=<?php echo $user['cod_prospect']; ?>"></a>
+                                        <a class="fa-solid fa-pen-to-square" href="<?php echo VIEWS_URL; ?>prospect/edit_prospect.php?cod_prospect=<?php echo $user['cod_prospect']; ?>&meth=get_propect"></a>
+                                        <a class="fa-solid fa-trash" href="<?php echo CONTROLLERS_URL; ?>crud_propect.php?cod_prospect=<?php echo $user['cod_prospect']; ?>&meth=del_propect"></a>
                                     </div>
                                 </td>
                                 <!-- Add other columns as needed -->

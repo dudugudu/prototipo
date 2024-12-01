@@ -33,7 +33,7 @@ require_once __DIR__ . '/../../../config.php';
                         <img src="<?php echo IMG_URL; ?>adduser.webp" alt="Adicionar Usuário">
                     </div>
                     <h1 class="text-center">Cadastro de propects</h1>
-                    <form action="<?php echo CONTROLLERS_URL; ?>insert_propect.php" method="POST">
+                    <form action="<?php echo CONTROLLERS_URL; ?>crud_propect.php" method="POST">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nome</label>
                             <input type="text" class="form-control"  name="name" required>
@@ -59,10 +59,14 @@ require_once __DIR__ . '/../../../config.php';
                     </form>
                     <p class="text-center text-danger">
                         <?php
-                        if (isset($_SESSION['erroInsert'])) {
-                            echo htmlspecialchars($_SESSION['erroInsert']); // Evita XSS
-                            unset($_SESSION['erroInsert']);
-                        }
+                        if (isset($_SESSION['messages'])) {
+                            // Codifica as mensagens em JSON para passá-las ao JavaScript
+                            $messages = json_encode($_SESSION['messages']);
+                            // Limpa as mensagens da sessão
+                            echo "let message = $messages;";
+                            echo "addNotify(message[0].text,message[0].type);";
+                            unset($_SESSION['messages']);
+                        } 
                         ?>
                     </p>
                 </div>
