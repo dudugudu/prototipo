@@ -1,21 +1,31 @@
 <?php
+session_start();
+
+// Incluindo arquivos necessários
+require_once __DIR__ . '/../../config.php';
+require_once (SRC . 'Controllers/User/ControllerUser.php'); 
+require_once (SRC . 'utils/notify.php'); 
+
+// Incluindo classes necessárias
+use Controllers\ControllerUser;
+use Utils\Notify;
+
+//Intacia a classe de notificação
+$notify = new Notify(); 
+
+
 /**
- * @author Eduardo Gustavo
+ * @autor Eduardo Gustavo da Silva Rodrigues
+ * @description Fazer tratamneto de requisições HTTP para POST de criação de usuário
+ * @param string $user indica o nome do usuário em body em metodo post
+ * @param string $name indica o nome do usuário em body em metodo post
+ * @param string $email indica o email do usuário em body em metodo post
+ * @param string $cellphone indica o celular do usuário em body em metodo post
+ * @param string $senha indica a senha do usuário em body em metodo post
+ * @param string $csenha indica a confirmação da senha do usuário em body em metodo post
  */
 
-session_start(); // Inicia a sessão
-
-require_once __DIR__ . '/../../config.php'; // Inclui o arquivo de configuração
-
-require_once (SRC . 'Controllers/User/ControllerUser.php'); // Inclui o controlador de usuário
-
-use Controllers\ControllerUser;
-require_once (SRC . 'utils/notify.php'); // Inclui o arquivo de utilidades; // Inclui o arquivo de utilidades
-use Utils\Notify;
-$notify = new Notify(); // Instancia a classe de notificação
-
 if(isset($_SERVER ['REQUEST_METHOD']) && $_SERVER ['REQUEST_METHOD'] == 'POST'){
-    // Verifica se os campos 'user' e 'senha' foram enviados via POST
     $user = $_POST['user'];
     $senha = $_POST['senha'];
     $email = $_POST['email'];
@@ -23,27 +33,26 @@ if(isset($_SERVER ['REQUEST_METHOD']) && $_SERVER ['REQUEST_METHOD'] == 'POST'){
     $cellphone = $_POST['cellphone'];   
     $csenha = $_POST['csenha'];
 
-
-    if($senha == $csenha){
-        $controller = new ControllerUser();
-        $user = $controller->cadastrarUser($user,$name, $email,$cellphone, $senha); // Valida o login do usuário
-        if($user){
-            // Se o login for bem-sucedido
-            $_SESSION['user'] = serialize($user); // Armazena o objeto usuário na sessão
-            header('Location: '.ROOT_URL.'index.php'); // Redireciona para o dashboard
-        }else{
-            // Se o login falhar
-            $notify->addMessage('Erro ao cadastrar usuário!', 'error'); // Adiciona uma mensagem de erro
-            header('Location: '. VIEWS_URL . 'insert_user.php'); // Redireciona para a página inicial
-        }
-
-    }else{
-        echo "Senhas não conferem!";
-        $notify->addMessage('Senhas não conferem!', 'error'); // Adiciona uma mensagem de erro
-        header('Location: '. VIEWS_URL . 'insert_user.php'); // Redireciona para a página inicial
+    if($senha != $csenha){
+        $notify->addMessage('Senhas não conferem!', 'error');
+        header('Location: '. VIEWS_URL . 'insert_user.php');
+        return;
     }
+    
+    $controller = new ControllerUser();
+    $user = $controller->cadastrarUser($user,$name, $email,$cellphone, $senha);
+
+    if(! $user){
+        $notify->addMessage('Erro ao cadastrar usuário!', 'error');
+        header('Location: '. VIEWS_URL . 'insert_user.php');
+        return;
+    }
+    
+    $notify->addMessage('Sucesso ao cadastrar usuário!', 'success');
+    header('Location: '.ROOT_URL.'index.php'); 
+
+
 }else{
-    // Caso os dados não tenham sido enviados via POST
-    $notify->addMessage('Você precisa estar logado para acessar esta página!', 'error'); // Adiciona uma mensagem de erro
-    header('Location: '. VIEWS_URL . 'insert_user.php'); // Redireciona para a página inicial
+    $notify->addMessage('Você precisa estar logado para acessar esta página!', 'error'); 
+    header('Location: '. VIEWS_URL . 'insert_user.php'); 
 }

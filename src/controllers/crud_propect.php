@@ -99,6 +99,7 @@ function deleteProspect($cod_prospect){
     if (! isset($_GET['cod_prospect'])) {
         $notify->addMessage('cod_prospect do prospect não forneccod_prospecto!', 'error'); 
         header('Location: ' . VIEWS_URL . 'dashboard.php'); 
+        return;
     }        
 
     // Busca o prospect no banco de dados para verificar se ele existe
@@ -107,6 +108,7 @@ function deleteProspect($cod_prospect){
     if(! $prospect){
         $notify->addMessage('Prospect não encontrado!', 'error');
         header('Location: ' . VIEWS_URL . 'dashboard.php');
+        return;
     }
 
     // Deleta o prospect do banco de dados
@@ -115,6 +117,7 @@ function deleteProspect($cod_prospect){
     if(! $deleted){
         $notify->addMessage('Erro ao deletar prospect!', 'error');
         header('Location: ' . VIEWS_URL . 'dashboard.php');
+        return;
     }
 
     $notify->addMessage('Prospect deletado com sucesso!', 'success');
@@ -144,6 +147,7 @@ function insertProspetc($name, $email, $whatapp, $facebook, $celular){
     if(! $prospect){
         $notify->addMessage('Erro ao cadastrar prospect!', 'error'); 
         header('Location: '. VIEWS_URL . 'insert_prospect.php'); 
+        return;
     }
 
     $notify->addMessage('Prospect adcionado com sucesso!'.$prospect, 'success'); 
@@ -167,15 +171,16 @@ function putProspect($name, $email, $whatapp, $facebook, $celular, $cod_prospect
     $controller = new ControllerPropect();
     
     // Atualiza o prospect
-    $prospect = $controller->putProspects($name, $email, $whatapp, $facebook, $celular, $cod_prospect); // Valida o cadastro do prospect
+    $prospect = $controller->putProspects($name, $email, $whatapp, $facebook, $celular, $cod_prospect);
 
     if(! $prospect){
-        $notify->addMessage('Erro ao cadastrar prospect!', 'error'); // Adiciona uma mensagem de erro
-        header('Location: '. VIEWS_URL . 'prospect/edit_prospect.php?cod_prospect='.$cod_prospect); // Redireciona para a página inicial
+        $notify->addMessage('Erro ao cadastrar prospect!', 'error');
+        header('Location: '. VIEWS_URL . 'prospect/edit_prospect.php?cod_prospect='.$cod_prospect);
+        return;
     }
 
-    $notify->addMessage('Prospect atualizado com sucesso! '. $cod_prospect, 'success'); // Adiciona uma mensagem de sucesso
-    $_SESSION['prospect'] = serialize($prospect); // Armazena o objeto prospect na sessão
-    header('Location: '.VIEWS_URL.'dashboard.php'); // Redireciona para o dashboard
+    $notify->addMessage('Prospect atualizado com sucesso! '. $cod_prospect, 'success');
+    $_SESSION['prospect'] = serialize($prospect);
+    header('Location: '.VIEWS_URL.'dashboard.php');
 }
 ?>
