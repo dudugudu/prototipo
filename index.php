@@ -2,6 +2,7 @@
 session_start();
 require_once  './config.php';
 
+
 ?>
 <!doctype html>
 <html lang="pt-br">

@@ -6,6 +6,10 @@ require_once (SRC . 'Controllers/Propects/ControllerPropect.php'); // Inclui a c
 
 use Controllers\ControllerPropect;
 
+if(! isset($_SESSION['user'])){
+    header('Location: '.ROOT_URL.'index.php');
+}
+
 $users = new ControllerPropect(); // Cria uma instância de ControllerPropect
 
 
